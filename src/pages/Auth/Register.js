@@ -12,8 +12,8 @@ const Register = () => {
     }
 
     return (
-        <div className="auth-container">
-            <h1>Vin<span className="color-logo">X</span></h1>
+        <div className="register">
+            <h1>Vin<span>X</span></h1>
             <p className="subtitle">Crie sua conta</p>
             <form onSubmit={handleSubmit}>
                 <input type="text" placeholder="Nome" />

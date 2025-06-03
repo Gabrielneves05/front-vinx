@@ -14,6 +14,10 @@
   text-decoration: none;
 }
 
+.logo span {
+  color: #557CA3;
+}
+
 .nav-right {
   display: flex;
   align-items: center;

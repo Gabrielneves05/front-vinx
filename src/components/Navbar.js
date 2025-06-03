@@ -12,7 +12,7 @@ import {
 const Navbar = () => {
     return (
         <nav className="nav">
-            <Link to="/" className="logo">VinX</Link>
+            <Link to="/" className="logo">Vin<span>X</span></Link>
 
             <div className="nav-right">
                 <form className="search-form">
