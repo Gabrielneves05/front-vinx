@@ -1,67 +1,70 @@
 .nav {
-  background-color: #F8FAFC;
-  border-bottom: 1px solid #DCE6EF;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  background-color: #F8FAFC;
+  border-bottom: 1px solid #E5E7EB;
+  padding: 1em 2em;
 }
 
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #111827;
+  color: #272E36;
   text-decoration: none;
 }
 
-.nav-content {
+.nav-right {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .search-form {
   position: relative;
 }
 
-.search-icon {
+.search-form svg {
   position: absolute;
-  left: 10px;
   top: 50%;
+  left: 10px;
   transform: translateY(-50%);
   color: #557CA3;
-  font-weight: bold;
   pointer-events: none;
 }
 
 .search-form input {
-  padding: 0.5rem 0.75rem 0.5rem 2.2rem;
-  border-radius: 8px;
+  width: 100%;
+  padding: 6px 10px 6px 32px;
   border: none;
-  outline: none;
-  font-size: 1rem;
+  border-radius: 6px;
   background-color: #DCE6EF;
+  font-size: 0.9rem;
+  height: 32px;
+  box-sizing: border-box;
+  vertical-align: middle;
   margin-bottom: 0;
 }
 
 .search-form input::placeholder {
-    font-weight: bold;
-    color: #557CA3;
+  color: #557CA3;
 }
 
 .nav-links {
   display: flex;
-  gap: 1rem;
   align-items: center;
   list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin-left: 1rem;
 }
 
 .nav-links a {
   text-decoration: none;
-  color: #262D35;
+  color: #272E36;
   font-weight: 500;
   display: flex;
   align-items: center;
@@ -70,4 +73,8 @@
 
 .nav-links a:hover {
   color: #557CA3;
+}
+
+.nav-links svg {
+  font-size: 1.3em;
 }

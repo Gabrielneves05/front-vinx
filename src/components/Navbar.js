@@ -14,12 +14,9 @@ const Navbar = () => {
         <nav className="nav">
             <Link to="/" className="logo">VinX</Link>
 
-            <div className="nav-content">
+            <div className="nav-right">
                 <form className="search-form">
-                    <Search 
-                        className="search-icon" 
-                        size={20}
-                    />
+                    <Search size={20} />
                     <input type="text" placeholder="Pesquisar..." />
                 </form>
 
