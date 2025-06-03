@@ -3,31 +3,44 @@ import "./Navbar.css";
 // Components
 import { NavLink, Link } from "react-router-dom";
 import { 
-    BsSearch, 
-    BsHouseDoorFill, 
-    BsFillPersonFill, 
-    BsFillCameraFill 
-} from "react-icons/bs";
+    Search, 
+    House,
+    UserRound,
+    Camera,
+} from "lucide-react";
 
 const Navbar = () => {
     return (
-        <nav id="nav">
-            <Link to="/">VinX</Link>
-            <form>
-                <BsSearch />
-                <input type="text" />
-            </form>
-            <ul id="nav-links">
-                <NavLink to="/">
-                    <BsHouseDoorFill />
-                </NavLink>
-                <NavLink to="/login">
-                    Entrar
-                </NavLink>
-                <NavLink to="/register">
-                    Cadastrar-se
-                </NavLink>
-            </ul>
+        <nav className="nav">
+            <Link to="/" className="logo">VinX</Link>
+
+            <div className="nav-content">
+                <form className="search-form">
+                    <Search 
+                        className="search-icon" 
+                        size={20}
+                    />
+                    <input type="text" placeholder="Pesquisar..." />
+                </form>
+
+                <ul className="nav-links">
+                    <li>
+                        <NavLink to="/">
+                            <House />
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/login">
+                            Entrar
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/register">
+                            Cadastrar-se
+                        </NavLink>
+                    </li>
+                </ul>
+            </div>
         </nav>
     )
 }
