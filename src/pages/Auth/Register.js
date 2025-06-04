@@ -28,33 +28,45 @@ const Register = () => {
     return (
         <div className="register">
             <h1>Vin<span>X</span></h1>
-            <p className="subtitle">Crie sua conta</p>
-            <form onSubmit={handleSubmit}>
-                <input 
-                    type="text" 
-                    placeholder="Nome" 
-                    onChange={e => setName(e.target.value)} 
-                    value={name || ""} 
-                />
-                <input 
-                    type="email" 
-                    placeholder="E-mail" 
-                    onChange={e => setEmail(e.target.value)} 
-                    value={email || ""} 
-                />
-                <input 
-                    type="password" 
-                    placeholder="Senha" 
-                    onChange={e => setPassword(e.target.value)} 
-                    value={password || ""}
-                />
-                <input 
-                    type="password" 
-                    placeholder="Confirme sua senha" 
-                    onChange={e => setConfirmPassword(e.target.value)}
-                    value={confirmPassword || ""}
-                />
-                <input type="submit" value="Cadastrar" />
+            <h2 className="subtitle">Crie sua conta</h2>
+            <form onSubmit={handleSubmit} className="form-modern">
+                <div className="form-group">
+                    <label>Nome</label>
+                    <input 
+                        type="text" 
+                        placeholder="Digite seu nome" 
+                        onChange={e => setName(e.target.value)} 
+                        value={name || ""} 
+                    />
+                </div>
+                <div className="form-group">
+                    <label>E-mail</label>
+                    <input 
+                        type="email" 
+                        placeholder="Digite seu e-mail" 
+                        onChange={e => setEmail(e.target.value)} 
+                        value={email || ""} 
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Senha</label>
+                    <input 
+                        type="password" 
+                        placeholder="Crie uma senha" 
+                        onChange={e => setPassword(e.target.value)} 
+                        value={password || ""}
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Confirme sua senha</label>
+                    <input 
+                        type="password" 
+                        placeholder="Confirme sua senha" 
+                        onChange={e => setConfirmPassword(e.target.value)}
+                        value={confirmPassword || ""}
+                    />
+                </div>
+                <input type="submit" value="Cadastrar" className="btn-submit" />
             </form>
             <p>Já possui uma conta? <Link to="/login">Entrar</Link></p>
         </div>
