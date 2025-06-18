@@ -1,11 +1,11 @@
-import { api, requestConfig } from '../utils/config';
+import { apiUrl, requestConfig } from '../utils/config';
 
 // Register an user
 const register = async (data) => {
     const config = requestConfig("POST", data);
     
     try {
-        const response = await fetch(api + "/users/register", config)
+        const response = await fetch(apiUrl + "/users/register", config)
             .then(res => res.json())
             .catch(err => err);
 
