@@ -9,7 +9,17 @@ import {
     Camera,
 } from "lucide-react";
 
+// Hooks
+import { useState } from "react";
+import { useAuth } from "../hooks/useAuth";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 const Navbar = () => {
+    const { auth } = useAuth();
+    const { user } = useSelector(state => state.auth);
+
+
     return (
         <nav className="nav">
             <Link to="/" className="logo">Vin<span>X</span></Link>
@@ -21,21 +31,46 @@ const Navbar = () => {
                 </form>
 
                 <ul className="nav-links">
-                    <li>
-                        <NavLink to="/">
-                            <House />
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/login">
-                            Entrar
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/register">
-                            Cadastrar-se
-                        </NavLink>
-                    </li>
+                    {auth ? (
+                        <>
+                            <li>
+                                <NavLink to="/">
+                                    <House />
+                                </NavLink>
+                            </li>
+                            
+                            {user && (
+                                <li>
+                                    <NavLink to={`/users/${user._id}`}>
+                                        <Camera />
+                                    </NavLink>
+                                </li>
+                            )}
+
+                            <li>
+                                <NavLink to="/profile">
+                                    <UserRound />
+                                </NavLink>
+                            </li>
+                            <li>
+                                <span>Sair</span>
+                            </li>
+                        </>
+                    ) : (
+                        <>
+                            <li>
+                                <NavLink to="/login">
+                                    Entrar
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/register">
+                                    Cadastrar-se
+                                </NavLink>
+                            </li>
+                        </>
+                    )}
+                    
                 </ul>
             </div>
         </nav>
