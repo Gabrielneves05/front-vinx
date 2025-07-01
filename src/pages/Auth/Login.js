@@ -8,13 +8,32 @@ import Message from "../../components/Message/Message";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+// Redux
+import { login, reset } from "../../slices/authSlice";
+
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const dispatch = useDispatch();
+
+    const { loading, error } = useSelector(state => state.auth);
+
     const handleSubmit = e => {
         e.preventDefault();
+
+        const user = {
+            email,
+            password
+        }
+
+        dispatch(login(user));
     }
+
+    // Clean all auth states
+    useEffect(() => {
+        dispatch(reset());
+    }, [dispatch]);
 
     return (
         <div className="login">
@@ -39,7 +58,10 @@ const Login = () => {
                         value={password || ""} 
                     />
                 </div>
-                <input type="submit" value="Entrar" className="btn-submit" />
+                
+                {!loading && <input type="submit" value="Entrar" className="btn-submit" />}
+                {loading && <input type="submit" value="Aguarde..." className="btn-submit" disabled/>}
+                {error && <Message message={error} type="error" />}
             </form>
             <p>Não possui uma conta? <Link to="/register">Clique aqui</Link></p>
         </div>
