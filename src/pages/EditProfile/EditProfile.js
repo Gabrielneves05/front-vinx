@@ -1,16 +1,42 @@
 import './EditProfile.css';
 
+import { uploads } from "../../utils/config";
+
+// Hooks
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+// Redux
+import { profile, resetMessage } from "../../slices/userSlice";
+
 // Components
 import Message from "../../components/Message/Message";
 
-// Hooks
-import { useState } from "react";
-
 const EditProfile = () => {
+    const dispatch = useDispatch();
+
+    const { user, message, error, loading } = useSelector(state => state.user);
+
     const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
     const [bio, setBio] = useState("");
     const [password, setPassword] = useState("");
-    const [image, setImage] = useState(null);
+    const [profileImage, setProfileImage] = useState("");
+    const [previewImage, setPreviewImage] = useState("");
+
+    // Loading user data
+    useEffect(() => {
+        dispatch(profile());
+    }, [dispatch]);
+
+    // Fill form with user data
+    useEffect(() => {
+        if(user) {
+            setName(user.name);
+            setEmail(user.email);
+            setBio(user.bio);
+        }
+    }, []);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -27,7 +53,7 @@ const EditProfile = () => {
                     <input 
                         type="text" 
                         placeholder="Digite seu nome"
-                        value={name}
+                        value={name || ""}
                         onChange={e => setName(e.target.value)}
                     />
                 </div>
@@ -36,7 +62,7 @@ const EditProfile = () => {
                     <input 
                         type="email" 
                         placeholder="Digite seu e-mail"
-                        value="email@exemplo.com"
+                        value={email || ""}
                         disabled 
                     />
                 </div>
@@ -44,7 +70,7 @@ const EditProfile = () => {
                     <label>Imagem do Perfil</label>
                     <input 
                         type="file"
-                        onChange={e => setImage(e.target.files[0])}
+                        onChange={e => setProfileImage(e.target.files[0])}
                     />
                 </div>
                 <div className="form-group">
@@ -52,7 +78,7 @@ const EditProfile = () => {
                     <input 
                         type="text" 
                         placeholder="Descrição do perfil"
-                        value={bio}
+                        value={bio || ""}
                         onChange={e => setBio(e.target.value)}
                     />
                 </div>
@@ -61,7 +87,7 @@ const EditProfile = () => {
                     <input 
                         type="password" 
                         placeholder="Digite sua nova senha"
-                        value={password}
+                        value={password || ""}
                         onChange={e => setPassword(e.target.value)}
                     />
                 </div>
