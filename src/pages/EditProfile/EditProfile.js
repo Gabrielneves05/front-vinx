@@ -1,6 +1,6 @@
 import './EditProfile.css';
 
-import { uploads } from "../../utils/config";
+import { uploadUrl } from "../../utils/config";
 
 // Hooks
 import { useEffect, useState } from "react";
@@ -31,7 +31,7 @@ const EditProfile = () => {
 
     // Fill form with user data
     useEffect(() => {
-        if(user) {
+        if (user) {
             setName(user.name);
             setEmail(user.email);
             setBio(user.bio);
@@ -43,15 +43,36 @@ const EditProfile = () => {
         // lógica de envio aqui
     };
 
+    const handleFile = e => {
+        const image = e.target.files[0];
+        setPreviewImage(image);
+        setProfileImage(image);
+    }
+
     return (
         <div className="edit-profile">
             <h1>Vin<span>X</span></h1>
-            <h2 className="subtitle">Edite seus dados de perfil</h2>
+            <h2>Edite seus dados de perfil</h2>
+            <p className="subtitle">Adicione uma imagem de perfil e conte-nos sobre você!</p>
+
             <form onSubmit={handleSubmit} className="form-modern">
+                <div className="form-group image-preview-group">
+                    {(user.profileImage || previewImage) && (
+                        <img
+                            className="profile-image"
+                            src={
+                                previewImage
+                                    ? URL.createObjectURL(previewImage)
+                                    : `${uploadUrl}/users/${user.profileImage}`
+                            }
+                            alt={user.name}
+                        />
+                    )}
+                </div>
                 <div className="form-group">
                     <label>Nome</label>
-                    <input 
-                        type="text" 
+                    <input
+                        type="text"
                         placeholder="Digite seu nome"
                         value={name || ""}
                         onChange={e => setName(e.target.value)}
@@ -59,24 +80,24 @@ const EditProfile = () => {
                 </div>
                 <div className="form-group">
                     <label>Email</label>
-                    <input 
-                        type="email" 
+                    <input
+                        type="email"
                         placeholder="Digite seu e-mail"
                         value={email || ""}
-                        disabled 
+                        disabled
                     />
                 </div>
                 <div className="form-group">
                     <label>Imagem do Perfil</label>
-                    <input 
+                    <input
                         type="file"
-                        onChange={e => setProfileImage(e.target.files[0])}
+                        onChange={handleFile}
                     />
                 </div>
                 <div className="form-group">
                     <label>Bio</label>
-                    <input 
-                        type="text" 
+                    <input
+                        type="text"
                         placeholder="Descrição do perfil"
                         value={bio || ""}
                         onChange={e => setBio(e.target.value)}
@@ -84,8 +105,8 @@ const EditProfile = () => {
                 </div>
                 <div className="form-group">
                     <label>Nova senha</label>
-                    <input 
-                        type="password" 
+                    <input
+                        type="password"
                         placeholder="Digite sua nova senha"
                         value={password || ""}
                         onChange={e => setPassword(e.target.value)}

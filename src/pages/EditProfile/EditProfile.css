@@ -19,6 +19,10 @@
     color: #405F8F;
 }
 
+.edit-profile h2 {
+    text-align: center;
+}
+
 .edit-profile .subtitle {
     font-weight: bold;
     color: #bebebe;
@@ -29,6 +33,21 @@
 .edit-profile form {
     padding-bottom: 1.5em;
     margin-bottom: 1.5em;
+}
+
+.image-preview-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ccc;
 }
 
 .form-group {
