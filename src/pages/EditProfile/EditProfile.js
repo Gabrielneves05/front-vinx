@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 // Redux
-import { profile, resetMessage } from "../../slices/userSlice";
+import { profile, resetMessage, updateProfile } from "../../slices/userSlice";
 
 // Components
 import Message from "../../components/Message/Message";
@@ -36,11 +36,41 @@ const EditProfile = () => {
             setEmail(user.email);
             setBio(user.bio);
         }
-    }, []);
+    }, [user]);
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
-        // lógica de envio aqui
+        
+        // Gather user data from states
+        const userData = {
+            name,
+        };
+
+        if(profileImage) {
+            userData.profileImage = profileImage;
+        }
+
+        if(bio) {
+            userData.bio = bio;
+        }
+
+        if(password) {
+            userData.password = password;
+        }
+
+        // Build form data
+        const formData = new FormData();
+
+        Object.keys(userData).forEach((key) =>
+            formData.append(key, userData[key])
+        );
+
+        // Send formData
+        await dispatch(updateProfile(formData));
+
+        setTimeout(() => {
+            dispatch(resetMessage());
+        }, 2000);
     };
 
     const handleFile = e => {
@@ -112,7 +142,10 @@ const EditProfile = () => {
                         onChange={e => setPassword(e.target.value)}
                     />
                 </div>
-                <input type="submit" value="Atualizar" className="btn-submit" />
+                {!loading && <input type="submit" value="Atualizar" className="btn-submit" />}
+                {loading && <input type="submit" value="Aguarde..." className="btn-submit" disabled />}
+                {error && <Message message={error} type="error" />}
+                {message && <Message message={message} type="success" />}
             </form>
         </div>
     );
