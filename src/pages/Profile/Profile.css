@@ -1,0 +1,47 @@
+/* C:\Users\Gabriel Neves\Documents\projetos\front-vinx\src\pages\Profile\Profile.css */
+
+#profile {
+  width: 60%;
+  margin: 2em auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  padding: 1.5em;
+  font-family: Arial, sans-serif;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-bottom: 1.5em;
+  border-bottom: 1px solid #eee;
+  gap: 1.5em;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #557CA3;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.profile-description {
+  flex: 1;
+  min-width: 200px;
+}
+
+.profile-description h2 {
+  margin: 0 0 0.5em 0;
+  font-size: 1.8em;
+  color: #333;
+}
+
+.profile-description p {
+  margin: 0;
+  font-size: 1em;
+  color: #666;
+  line-height: 1.5;
+}
