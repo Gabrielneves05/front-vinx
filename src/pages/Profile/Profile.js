@@ -135,7 +135,13 @@ const Profile = () => {
               )}
 
               {id === userAuth._id ? (
-                <p>Actions</p>
+                <div className="actions" to={`/photos${photo._id}`}>
+                  <Link>
+                    <Eye />
+                  </Link>
+                  <Pencil />
+                  <X />
+                </div>
               ) : (<Link className="btn" to={`/photos${photo._id}`}>Ver</Link>)}
             </div>
           ))}
