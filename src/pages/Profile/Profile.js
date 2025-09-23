@@ -217,14 +217,14 @@ const Profile = () => {
               )}
 
               {id === userAuth._id ? (
-                <div className="actions" to={`/photos${photo._id}`}>
-                  <Link>
+                <div className="actions">
+                  <Link to={`/photos/${photo._id}`}>
                     <Eye />
                   </Link>
                   <Pencil onClick={() => handleEdit(photo)} />
                   <X onClick={() => handleDelete(photo._id)} />
                 </div>
-              ) : (<Link className="btn" to={`/photos${photo._id}`}>Ver</Link>)}
+              ) : (<Link className="btn" to={`/photos/${photo._id}`}>Ver</Link>)}
             </div>
           ))}
 
