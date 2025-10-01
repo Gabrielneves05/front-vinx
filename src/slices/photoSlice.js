@@ -39,6 +39,16 @@ export const getUserPhotos = createAsyncThunk(
     }
 )
 
+// Get a photo by id
+export const getPhoto = createAsyncThunk(
+    "photo/getphoto",
+    async(id) => {
+        const data = await photoService.getPhoto(id);
+
+        return data;
+    }
+)
+
 // Update a photo
 export const updatePhoto = createAsyncThunk(
     "photo/update",
@@ -125,30 +135,18 @@ export const photoSlice = createSlice({
                 state.photos = action.payload;
         })
         .addCase(
-            deletePhoto.pending, 
+            getPhoto.pending, 
             state => {
                 state.loading = true;
                 state.error = false;
         })
         .addCase(
-            deletePhoto.fulfilled, 
+            getPhoto.fulfilled, 
             (state, action) => {
                 state.loading = false;
                 state.success = true;
                 state.error = null;
-
-                state.photos = state.photos.filter(photo => {
-                    return photo._id !== action.payload.id;
-                })
-
-                state.message = action.payload.message;
-        })
-        .addCase(
-            deletePhoto.rejected, 
-            (state, action) => {
-                state.loading = false;
-                state.error = action.payload;
-                state.photo = {};
+                state.photo = action.payload;
         })
         .addCase(
             updatePhoto.pending, 
@@ -180,6 +178,32 @@ export const photoSlice = createSlice({
                 state.error = action.payload;
                 state.photo = {};
         })
+        .addCase(
+            deletePhoto.pending, 
+            state => {
+                state.loading = true;
+                state.error = false;
+        })
+        .addCase(
+            deletePhoto.fulfilled, 
+            (state, action) => {
+                state.loading = false;
+                state.success = true;
+                state.error = null;
+
+                state.photos = state.photos.filter(photo => {
+                    return photo._id !== action.payload.id;
+                })
+
+                state.message = action.payload.message;
+        })
+        .addCase(
+            deletePhoto.rejected, 
+            (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+                state.photo = {};
+        });
     }
 })
 

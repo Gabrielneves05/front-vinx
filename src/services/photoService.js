@@ -30,6 +30,21 @@ const getUserPhotos = async (id, token) => {
     }
 }
 
+// Get a photo by id
+const getPhoto = async(id) => {
+    const config = requestConfig("GET");
+
+    try {
+        const res = await fetch(apiUrl + "/photos/" + id, config)
+            .then(res => res.json())
+            .catch(err => err);
+        
+        return res;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 // Update a photo
 const updatePhoto = async (data, id, token) => {
     const config = requestConfig("PUT", data, token);
@@ -63,8 +78,9 @@ const deletePhoto = async (id, token) => {
 const photoService = {
     publishPhoto,
     getUserPhotos,
-    deletePhoto,
+    getPhoto,
     updatePhoto,
+    deletePhoto,
 }
 
 export default photoService;
