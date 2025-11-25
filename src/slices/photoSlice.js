@@ -224,26 +224,31 @@ export const photoSlice = createSlice({
                 state.photo = {};
         })
         .addCase(
-            like.fulfilled, 
+            like.fulfilled,
             (state, action) => {
                 state.loading = false;
                 state.success = true;
                 state.error = null;
 
-                if(state.photo.likes) {
+                // Atualiza a foto atual se estiver aberta
+                if (state.photo.likes) {
                     state.photo.likes.push(action.payload.userId);
                 }
 
-                state.photos.map(photo => {
-                    if(photo._id === action.payload.photo.photoId) {
-                        return photo.likes.push(action.payload.userId);
+                // Atualiza lista de fotos da home/profile
+                state.photos = state.photos.map(photo => {
+                    if (photo._id === action.payload.photoId) {
+                        return {
+                            ...photo,
+                            likes: [...photo.likes, action.payload.userId]
+                        };
                     }
-
                     return photo;
-                })
+                });
 
                 state.message = action.payload.message;
-        })
+            }
+        )
         .addCase(
             like.rejected, 
             (state, action) => {
