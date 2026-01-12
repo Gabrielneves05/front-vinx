@@ -22,6 +22,8 @@ const Navbar = () => {
     const { auth } = useAuth();
     const { user } = useSelector(state => state.auth);
 
+    const [query, setQuery] = useState("");
+
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
@@ -33,14 +35,22 @@ const Navbar = () => {
         navigate("/login");
     }
 
+    const handleSearch = (e) => {
+        e.preventDefault();
+
+        if (query) {
+            return navigate(`/search?q=${query}`);
+        }
+    }
+
     return (
         <nav className="nav">
             <Link to="/" className="logo">Vin<span>X</span></Link>
 
             <div className="nav-right">
-                <form className="search-form">
+                <form className="search-form" onSubmit={handleSearch}>
                     <Search size={20} />
-                    <input type="text" placeholder="Pesquisar..." />
+                    <input type="text" placeholder="Pesquisar..." onChange={(e) => setQuery(e.target.value)} />
                 </form>
 
                 <ul className="nav-links">
