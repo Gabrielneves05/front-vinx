@@ -7,6 +7,8 @@ import {
     House,
     UserRound,
     Camera,
+    Menu,
+    X
 } from "lucide-react";
 
 // Hooks
@@ -23,6 +25,7 @@ const Navbar = () => {
     const { user } = useSelector(state => state.auth);
 
     const [query, setQuery] = useState("");
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const navigate = useNavigate();
 
@@ -31,7 +34,7 @@ const Navbar = () => {
     const handleLogout = () => {
         dispatch(logout());
         dispatch(reset());
-
+        setMobileMenuOpen(false);
         navigate("/login");
     }
 
@@ -39,64 +42,94 @@ const Navbar = () => {
         e.preventDefault();
 
         if (query) {
+            setMobileMenuOpen(false);
             return navigate(`/search?q=${query}`);
         }
     }
 
+    const closeMobileMenu = () => {
+        setMobileMenuOpen(false);
+    }
+
     return (
-        <nav className="nav">
-            <Link to="/" className="logo">Vin<span>X</span></Link>
+        <>
+            {mobileMenuOpen && (
+                <div 
+                    className="mobile-overlay" 
+                    onClick={() => setMobileMenuOpen(false)}
+                ></div>
+            )}
+            
+            <nav className="nav">
+                <Link to="/" className="logo">Vin<span>X</span></Link>
 
-            <div className="nav-right">
-                <form className="search-form" onSubmit={handleSearch}>
-                    <Search size={20} />
-                    <input type="text" placeholder="Pesquisar..." onChange={(e) => setQuery(e.target.value)} />
-                </form>
+                <button 
+                    className="mobile-menu-toggle" 
+                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    aria-label="Toggle menu"
+                >
+                    {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                </button>
 
-                <ul className="nav-links">
-                    {auth ? (
-                        <>
-                            <li>
-                                <NavLink to="/">
-                                    <House />
-                                </NavLink>
-                            </li>
-                            
-                            {user && (
+                <div className={`nav-right ${mobileMenuOpen ? 'mobile-open' : ''}`}>
+                    <form className="search-form" onSubmit={handleSearch}>
+                        <Search size={20} />
+                        <input 
+                            type="text" 
+                            placeholder="Pesquisar..." 
+                            onChange={(e) => setQuery(e.target.value)}
+                            value={query}
+                        />
+                    </form>
+
+                    <ul className="nav-links">
+                        {auth ? (
+                            <>
                                 <li>
-                                    <NavLink to={`/users/${user._id}`}>
-                                        <Camera />
+                                    <NavLink to="/" onClick={closeMobileMenu}>
+                                        <House />
+                                        <span className="link-text">Início</span>
                                     </NavLink>
                                 </li>
-                            )}
+                                
+                                {user && (
+                                    <li>
+                                        <NavLink to={`/users/${user._id}`} onClick={closeMobileMenu}>
+                                            <Camera />
+                                            <span className="link-text">Fotos</span>
+                                        </NavLink>
+                                    </li>
+                                )}
 
-                            <li>
-                                <NavLink to="/profile">
-                                    <UserRound />
-                                </NavLink>
-                            </li>
-                            <li>
-                                <span onClick={handleLogout}>Sair</span>
-                            </li>
-                        </>
-                    ) : (
-                        <>
-                            <li>
-                                <NavLink to="/login">
-                                    Entrar
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/register">
-                                    Cadastrar-se
-                                </NavLink>
-                            </li>
-                        </>
-                    )}
-                    
-                </ul>
-            </div>
-        </nav>
+                                <li>
+                                    <NavLink to="/profile" onClick={closeMobileMenu}>
+                                        <UserRound />
+                                        <span className="link-text">Perfil</span>
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <span onClick={handleLogout} className="logout-btn">Sair</span>
+                                </li>
+                            </>
+                        ) : (
+                            <>
+                                <li>
+                                    <NavLink to="/login" onClick={closeMobileMenu}>
+                                        Entrar
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/register" onClick={closeMobileMenu}>
+                                        Cadastrar-se
+                                    </NavLink>
+                                </li>
+                            </>
+                        )}
+                        
+                    </ul>
+                </div>
+            </nav>
+        </>
     )
 }
 
