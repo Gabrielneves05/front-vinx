@@ -196,7 +196,14 @@ export const photoSlice = createSlice({
                 state.loading = false;
                 state.success = true;
                 state.error = null;
-                state.photos = action.payload;
+                state.photos = Array.isArray(action.payload) ? action.payload : [];
+        })
+        .addCase(
+            getUserPhotos.rejected, 
+            (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+                state.photos = [];
         })
         .addCase(
             getPhoto.pending, 
@@ -331,7 +338,14 @@ export const photoSlice = createSlice({
                 state.loading = false;
                 state.success = true;
                 state.error = null;
-                state.photos = action.payload;
+                state.photos = Array.isArray(action.payload) ? action.payload : [];
+        })
+        .addCase(
+            getPhotos.rejected, 
+            (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+                state.photos = [];
         })
         .addCase(
             searchPhotos.pending, 
@@ -345,7 +359,14 @@ export const photoSlice = createSlice({
                 state.loading = false;
                 state.success = true;
                 state.error = null;
-                state.photos = action.payload;
+                state.photos = Array.isArray(action.payload) ? action.payload : [];
+        })
+        .addCase(
+            searchPhotos.rejected, 
+            (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+                state.photos = [];
         });
     }
 })

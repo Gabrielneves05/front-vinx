@@ -6,7 +6,7 @@ import PhotoItem from "../../components/PhotoItem/PhotoItem";
 import { Link } from "react-router-dom";
 
 // Hooks
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useResetComponentMessage } from "../../hooks/useResetComponentMessage";
 
@@ -39,7 +39,7 @@ const Home = () => {
 
     return (
         <div id="home">
-            {photos && photos.map(photo => (
+            {photos && Array.isArray(photos) && photos.map(photo => (
                 <div key={photo._id}>
                     <PhotoItem photo={photo} />
                     <LikeContainer 
@@ -51,9 +51,9 @@ const Home = () => {
                 </div>
             ))}
 
-            {photos && photos.length === 0 && (
+            {photos && Array.isArray(photos) && photos.length === 0 && (
                 <h2 className="no-photos">
-                    Ainda não existem fotos publicadas, 
+                    Ainda não existem fotos publicadas,<br />
                     <Link to={`/users/${user._id}`}>
                         Clique aqui!
                     </Link>
