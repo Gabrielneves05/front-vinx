@@ -34,31 +34,52 @@ const Home = () => {
     }
 
     if(loading) {
-        return <p>Carregando...</p>
+        return (
+            <div className="loading-container">
+                <div className="loading-spinner"></div>
+                <p>Carregando...</p>
+            </div>
+        );
     }
 
     return (
-        <div id="home">
-            {photos && Array.isArray(photos) && photos.map(photo => (
-                <div key={photo._id}>
-                    <PhotoItem photo={photo} />
-                    <LikeContainer 
-                        photo={photo} 
-                        user={user} 
-                        handleLike={handleLike} 
-                    />
-                    <Link className="btn" to={`/photos/${photo._id}`}>Ver Mais</Link>
+        <div className="home-container">
+            <div className="home-content">
+                <div className="feed-header">
+                    <h1>Feed de Fotos</h1>
+                    <p>Descubra e compartilhe momentos incríveis</p>
                 </div>
-            ))}
 
-            {photos && Array.isArray(photos) && photos.length === 0 && (
-                <h2 className="no-photos">
-                    Ainda não existem fotos publicadas,<br />
-                    <Link to={`/users/${user._id}`}>
-                        Clique aqui!
-                    </Link>
-                </h2>
-            )}
+                {photos && Array.isArray(photos) && photos.length > 0 ? (
+                    <div className="photos-grid">
+                        {photos.map(photo => (
+                            <div key={photo._id} className="photo-card">
+                                <PhotoItem photo={photo} />
+                                <LikeContainer 
+                                    photo={photo} 
+                                    user={user} 
+                                    handleLike={handleLike} 
+                                />
+                                <div className="card-footer">
+                                    <Link className="btn-view-more" to={`/photos/${photo._id}`}>
+                                        Ver Mais
+                                    </Link>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="no-photos">
+                        <div className="no-photos-content">
+                            <h2>Ainda não existem fotos publicadas</h2>
+                            <p>Seja o primeiro a compartilhar suas memórias!</p>
+                            <Link to={`/users/${user._id}`} className="btn-first-photo">
+                                Publicar Primeira Foto
+                            </Link>
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
     )
 }

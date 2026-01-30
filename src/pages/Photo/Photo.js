@@ -7,6 +7,9 @@ import PhotoItem from "../../components/PhotoItem/PhotoItem";
 import Message from "../../components/Message/Message";
 import { Link } from "react-router-dom";
 
+// Icons
+import { Send } from "lucide-react";
+
 // Hooks
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -60,57 +63,87 @@ const Photo = () => {
 
     if(loading) {
         return (
-            <p>Carregando...</p>
-        )
+            <div className="loading-container">
+                <div className="loading-spinner"></div>
+                <p>Carregando...</p>
+            </div>
+        );
     }
 
     return (
-        <div id="photo">
-            <PhotoItem photo={photo} />
-            <LikeContainer 
-                photo={photo} 
-                user={user} 
-                handleLike={handleLike}
-            />
-            <div className="message-container">
-                {error && <Message message={error} type="error" />}
-                {message && <Message message={message} type="success" />}
-            </div>
-            <div className="comments">
-                {photo.comments && (
-                    <>
-                        <h3>Comentários: ({photo.comments.length})</h3>
-                        <form onSubmit={handleComment}>
-                            <input 
-                                type="text" 
-                                placeholder="Insira o seu comentário..." onChange={(e) => setCommentText(e.target.value)} 
-                                value={commentText || ""} 
-                            />
-                            <input 
-                                type="submit" 
-                                value="Enviar" 
-                            />
-                        </form>
-                        {photo.comments.length === 0 && <p>Não há comentários ainda.</p>}
-                        {photo.comments.map((comment) => (
-                            <div className="comment" key={comment.comment}>
-                                <div className="author">
-                                    {comment.userImage && (
-                                        <img 
-                                            src={`${uploadUrl}/users/${comment.userImage}`} 
-                                            alt={comment.userName} 
-                                        />
-                                    )}
+        <div className="photo-container">
+            <div className="photo-content">
+                <div className="photo-header">
+                    <h1>Detalhes da Foto</h1>
+                    <p>Veja, curta e comente esta publicação</p>
+                </div>
 
-                                    <Link to={`/users/${comment.userId}`}>
-                                        <p>{comment.userName}</p>
-                                    </Link>
-                                </div>
-                                <p>{comment.comment}</p>
+                <div className="photo-main-card">
+                    <PhotoItem photo={photo} />
+                    <LikeContainer 
+                        photo={photo} 
+                        user={user} 
+                        handleLike={handleLike}
+                    />
+                </div>
+
+                <div className="message-container">
+                    {error && <Message message={error} type="error" />}
+                    {message && <Message message={message} type="success" />}
+                </div>
+
+                <div className="comments-section">
+                    {photo.comments && (
+                        <>
+                            <div className="comments-header">
+                                <h3>Comentários ({photo.comments.length})</h3>
                             </div>
-                        ))}
-                    </>
-                )}
+
+                            <form onSubmit={handleComment} className="comment-form">
+                                <div className="comment-input-wrapper">
+                                    <input 
+                                        type="text" 
+                                        placeholder="Insira o seu comentário..." 
+                                        onChange={(e) => setCommentText(e.target.value)} 
+                                        value={commentText || ""} 
+                                    />
+                                    <button 
+                                        type="submit" 
+                                        className="btn-send-comment"
+                                        disabled={!commentText.trim()}
+                                    >
+                                        <Send size={20} />
+                                        <span>Enviar</span>
+                                    </button>
+                                </div>
+                            </form>
+
+                            <div className="comments-list">
+                                {photo.comments.length === 0 ? (
+                                    <p className="no-comments">Não há comentários ainda. Seja o primeiro a comentar!</p>
+                                ) : (
+                                    photo.comments.map((comment) => (
+                                        <div className="comment-item" key={comment.comment}>
+                                            <div className="comment-author">
+                                                {comment.userImage && (
+                                                    <img 
+                                                        src={`${uploadUrl}/users/${comment.userImage}`} 
+                                                        alt={comment.userName} 
+                                                        className="author-avatar"
+                                                    />
+                                                )}
+                                                <Link to={`/users/${comment.userId}`} className="author-name">
+                                                    {comment.userName}
+                                                </Link>
+                                            </div>
+                                            <p className="comment-text">{comment.comment}</p>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+                        </>
+                    )}
+                </div>
             </div>
         </div>
     )

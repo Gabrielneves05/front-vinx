@@ -1,22 +1,24 @@
-/* Container Principal */
 .auth-container {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, #405F8F 0%, #2d4466 100%);
-    padding: 2em;
+    padding: 1.5em;
 }
 
-/* Card de Autenticação */
 .auth-card {
-    padding: 2.5em 2.5em 2em;
+    padding: 2em 2em 1.5em;
     width: 100%;
-    max-width: 450px;
+    max-width: 420px;
     background-color: #ffffff;
     border-radius: 20px;
     box-shadow: 0 20px 60px rgba(64, 95, 143, 0.3);
     animation: slideUp 0.5s ease-out;
+}
+
+.auth-card.register {
+    max-width: 440px;
 }
 
 @keyframes slideUp {
@@ -30,14 +32,13 @@
     }
 }
 
-/* Header */
 .auth-header {
     text-align: center;
-    margin-bottom: 2em;
+    margin-bottom: 1.5em;
 }
 
 .auth-card h1 {
-    font-size: 3em;
+    font-size: 2.5em;
     margin: 0 0 0.2em 0;
     font-weight: 800;
     color: #1a1a1a;
@@ -51,27 +52,25 @@
     font-weight: 600;
     color: #6b7280;
     margin: 0;
-    font-size: 1em;
+    font-size: 0.95em;
 }
 
-/* Formulário */
 .form-modern {
-    margin-bottom: 1.5em;
+    margin-bottom: 1.2em;
 }
 
 .form-group {
-    margin-bottom: 1.5em;
+    margin-bottom: 1.2em;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.4em;
     font-weight: 600;
     color: #374151;
-    font-size: 0.95em;
+    font-size: 0.9em;
 }
 
-/* Input Wrapper com Ícones */
 .input-wrapper {
     position: relative;
     display: flex;
@@ -93,11 +92,11 @@
 
 .input-wrapper input {
     width: 100%;
-    padding: 0.9em 1em 0.9em 3em;
+    padding: 0.85em 1em 0.85em 3em;
     border-radius: 12px;
     border: 2px solid #e5e7eb;
     color: #1f2937;
-    font-size: 1em;
+    font-size: 0.95em;
     transition: all 0.3s;
     background-color: #f9fafb;
 }
@@ -113,11 +112,10 @@
     color: #9ca3af;
 }
 
-/* Botão de Toggle Senha */
 .toggle-password {
     position: absolute;
     right: 1em;
-    bottom: 1em;
+    bottom: 0.85em;
     background: none;
     border: none;
     cursor: pointer;
@@ -137,14 +135,13 @@
     outline: none;
 }
 
-/* Botão de Envio */
 .btn-submit {
     width: 100%;
-    padding: 1em;
+    padding: 0.9em;
     border: none;
     border-radius: 12px;
     font-weight: 700;
-    font-size: 1em;
+    font-size: 0.95em;
     cursor: pointer;
     transition: all 0.3s ease;
     margin-top: 0.5em;
@@ -168,10 +165,9 @@
     cursor: not-allowed;
 }
 
-/* Footer */
 .auth-footer {
     text-align: center;
-    font-size: 0.95em;
+    font-size: 0.9em;
     color: #6b7280;
     margin: 0;
 }
@@ -188,38 +184,65 @@
     text-decoration: underline;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
     .auth-container {
         padding: 1em;
     }
 
     .auth-card {
-        padding: 2em 1.5em;
+        padding: 1.8em 1.5em 1.3em;
+        max-width: 100%;
+    }
+
+    .auth-card.register {
         max-width: 100%;
     }
 
     .auth-card h1 {
-        font-size: 2.5em;
+        font-size: 2.2em;
     }
 
     .subtitle {
         font-size: 0.9em;
     }
+
+    .form-group {
+        margin-bottom: 1em;
+    }
 }
 
 @media (max-width: 480px) {
+    .auth-container {
+        padding: 0.8em;
+    }
+
+    .auth-card {
+        padding: 1.5em 1.2em 1em;
+    }
+
     .auth-card h1 {
         font-size: 2em;
     }
 
+    .auth-header {
+        margin-bottom: 1.2em;
+    }
+
     .input-wrapper input {
-        padding: 0.8em 1em 0.8em 2.8em;
-        font-size: 0.95em;
+        padding: 0.75em 1em 0.75em 2.8em;
+        font-size: 0.9em;
     }
 
     .btn-submit {
-        padding: 0.9em;
-        font-size: 0.95em;
+        padding: 0.8em;
+        font-size: 0.9em;
+    }
+
+    .form-group {
+        margin-bottom: 0.9em;
+    }
+
+    .form-group label {
+        font-size: 0.85em;
     }
 }

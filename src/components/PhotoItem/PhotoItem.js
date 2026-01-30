@@ -8,14 +8,18 @@ const PhotoItem = ({ photo }) => {
     return (
         <div className="photo-item">
             {photo.image && (
-                <img src={`${uploadUrl}/photos/${photo.image}`} alt={photo.title} />
+                <div className="photo-image-wrapper">
+                    <img src={`${uploadUrl}/photos/${photo.image}`} alt={photo.title} />
+                </div>
             )}
 
-            <h2>{photo.title}</h2>
-            <p className="photo-author">
-                Publicada por: 
-                <Link to={`/users/${photo.userId}`}> {photo.userName}</Link>
-            </p>
+            <div className="photo-info">
+                <h2>{photo.title}</h2>
+                <p className="photo-author">
+                    Publicada por: 
+                    <Link to={`/users/${photo.userId}`}> {photo.userName}</Link>
+                </p>
+            </div>
         </div>
     )
 }
