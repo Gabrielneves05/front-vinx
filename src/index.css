@@ -77,7 +77,6 @@ input:disabled {
 
 button:hover,
 input[type="submit"]:hover {
-  scale: 1.1;
   background-color: #405f8f;
 }
 

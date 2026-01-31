@@ -1,83 +1,598 @@
-#profile {
-  width: 60%;
-  margin: 2em auto;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  padding: 1.5em;
-  font-family: Arial, sans-serif;
+.profile-container {
+    min-height: calc(100vh - 70px);
+    background: linear-gradient(180deg, #f9fafb 0%, #ffffff 100%);
+    padding: 2em 1.5em;
+}
+
+.profile-content {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .profile-header {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  padding-bottom: 1.5em;
-  border-bottom: 1px solid #eee;
-  gap: 1.5em;
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    background-color: #ffffff;
+    padding: 2em;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(64, 95, 143, 0.1);
+    margin-bottom: 2em;
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .profile-image {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 3px solid #557CA3;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #405F8F;
+    box-shadow: 0 4px 15px rgba(64, 95, 143, 0.3);
+    flex-shrink: 0;
 }
 
 .profile-description {
-  flex: 1;
-  min-width: 200px;
+    flex: 1;
 }
 
 .profile-description h2 {
-  margin: 0 0 0.5em 0;
-  font-size: 1.8em;
-  color: #333;
+    margin: 0 0 0.5em 0;
+    font-size: 2em;
+    font-weight: 800;
+    color: #1a1a1a;
 }
 
 .profile-description p {
-  margin: 0;
-  font-size: 1em;
-  color: #666;
-  line-height: 1.5;
+    margin: 0;
+    font-size: 1.05em;
+    color: #6b7280;
+    line-height: 1.6;
+    font-weight: 500;
 }
 
 .new-photo {
-  padding: 1em;
-  border-bottom: 1px solid #363636;
+    background-color: #ffffff;
+    padding: 2em;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(64, 95, 143, 0.1);
+    margin-bottom: 2em;
+    animation: fadeIn 0.6s ease-out;
 }
 
-.photos-container {
-  display: flex;
-  flex-wrap: wrap;
+.new-photo h3 {
+    margin: 0 0 1.5em 0;
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #1a1a1a;
 }
 
-.photo {
-  width: 32%;
-  margin: 0.3%;
+.new-photo form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2em;
 }
 
-.photo img {
-  width: 100%;
+.new-photo label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
 }
 
-.actions {
-  display: flex;
-  justify-content: space-around;
-  padding: 10px;
+.new-photo label span {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.95em;
 }
 
-.actions svg {
-  cursor: pointer;
+.new-photo input[type="text"],
+.new-photo input[type="file"] {
+    padding: 0.75em 1em;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.new-photo input[type="text"]:focus {
+    outline: none;
+    border-color: #405F8F;
+    box-shadow: 0 0 0 3px rgba(64, 95, 143, 0.1);
+}
+
+.new-photo input[type="file"] {
+    cursor: pointer;
+}
+
+.new-photo input[type="submit"] {
+    padding: 0.9em 2em;
+    background-color: #405F8F;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(64, 95, 143, 0.3);
+    margin-top: 0.5em;
+}
+
+.new-photo input[type="submit"]:hover:not(:disabled) {
+    background-color: #30476d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(64, 95, 143, 0.4);
+}
+
+.new-photo input[type="submit"]:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.new-photo input[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .edit-photo {
-  margin-bottom: 1em;
+    background-color: #ffffff;
+    padding: 2em;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(64, 95, 143, 0.1);
+    margin-bottom: 2em;
+    animation: fadeIn 0.6s ease-out;
+}
+
+.edit-photo p {
+    margin: 0 0 1em 0;
+    font-weight: 700;
+    font-size: 1.2em;
+    color: #1a1a1a;
 }
 
 .edit-photo img {
-  width: 100%;
-  margin-bottom: 1em;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 12px;
+    margin-bottom: 1.5em;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.edit-photo form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.edit-photo input[type="text"] {
+    padding: 0.75em 1em;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+}
+
+.edit-photo input[type="text"]:focus {
+    outline: none;
+    border-color: #405F8F;
+    box-shadow: 0 0 0 3px rgba(64, 95, 143, 0.1);
+}
+
+.edit-photo input[type="submit"],
+.edit-photo .cancel-btn {
+    padding: 0.8em 1.5em;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.edit-photo input[type="submit"] {
+    background-color: #405F8F;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(64, 95, 143, 0.3);
+}
+
+.edit-photo input[type="submit"]:hover {
+    background-color: #30476d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(64, 95, 143, 0.4);
+}
+
+.edit-photo .cancel-btn {
+    background-color: #ef4444;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.edit-photo .cancel-btn:hover {
+    background-color: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(239, 68, 68, 0.4);
+}
+
+.hide {
+    display: none;
+}
+
+.user-photos-section {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.user-photos-section h2 {
+    font-size: 1.8em;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin: 0 0 1.5em 0;
+    text-align: center;
+}
+
+.photos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2em;
+}
+
+.photo-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(64, 95, 143, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.photo-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(64, 95, 143, 0.2);
+}
+
+.photo-image-wrapper {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: #f3f4f6;
+    aspect-ratio: 4/3;
+}
+
+.photo-image-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.03) 100%);
+    pointer-events: none;
+}
+
+.photo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.photo-card:hover img {
+    transform: scale(1.05);
+}
+
+.photo-info {
+    padding: 1.2em 1.2em 0.8em;
+}
+
+.photo-info h3 {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+}
+
+.card-actions {
+    display: flex;
+    gap: 0.5em;
+    padding: 0 1.2em 1.2em;
+}
+
+.action-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    padding: 0.7em;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    box-sizing: border-box;
+    min-width: 0;
+}
+
+.view-btn {
+    background-color: #405F8F;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(64, 95, 143, 0.3);
+}
+
+.view-btn:hover {
+    background-color: #30476d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(64, 95, 143, 0.4);
+}
+
+.edit-btn {
+    background-color: #f59e0b;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+.edit-btn:hover {
+    background-color: #d97706;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+.delete-btn {
+    background-color: #ef4444;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.delete-btn:hover {
+    background-color: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+.card-footer {
+    padding: 0 1.2em;
+}
+
+.btn-view-more {
+    display: block;
+    width: 100%;
+    margin: 0 0 1.2em 0;
+    padding: 0.75em 1.2em;
+    background-color: #405F8F;
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95em;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(64, 95, 143, 0.3);
+    box-sizing: border-box;
+}
+
+.btn-view-more:hover {
+    background-color: #30476d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(64, 95, 143, 0.4);
+}
+
+.btn-view-more:active {
+    transform: translateY(0);
+}
+
+.no-photos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40vh;
+    padding: 2em;
+}
+
+.no-photos-content {
+    text-align: center;
+    max-width: 500px;
+    background-color: #ffffff;
+    padding: 3em 2.5em;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(64, 95, 143, 0.15);
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.no-photos-content h3 {
+    color: #1a1a1a;
+    font-size: 1.5em;
+    margin: 0 0 0.5em 0;
+    font-weight: 800;
+}
+
+.no-photos-content p {
+    color: #6b7280;
+    font-size: 1.05em;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    gap: 1em;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #e5e7eb;
+    border-top: 4px solid #405F8F;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-container p {
+    color: #6b7280;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+    .profile-container {
+        padding: 1.5em 1.2em;
+    }
+
+    .photos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5em;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 1.2em 1em;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5em;
+        gap: 1.5em;
+    }
+
+    .profile-description h2 {
+        font-size: 1.6em;
+    }
+
+    .new-photo,
+    .edit-photo {
+        padding: 1.5em;
+    }
+
+    .photos-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5em;
+    }
+
+    .user-photos-section h2 {
+        font-size: 1.5em;
+    }
+
+    .photo-info {
+        padding: 1em 1em 0.7em;
+    }
+
+    .photo-info h3 {
+        font-size: 1.15em;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-container {
+        padding: 1em 0.8em;
+    }
+
+    .profile-header {
+        padding: 1.2em;
+    }
+
+    .profile-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-description h2 {
+        font-size: 1.4em;
+    }
+
+    .profile-description p {
+        font-size: 0.95em;
+    }
+
+    .new-photo h3 {
+        font-size: 1.2em;
+    }
+
+    .new-photo,
+    .edit-photo {
+        padding: 1.2em;
+    }
+
+    .photos-grid {
+        gap: 1.2em;
+    }
+
+    .photo-image-wrapper {
+        aspect-ratio: 1/1;
+    }
+
+    .photo-info {
+        padding: 0.9em 0.9em 0.6em;
+    }
+
+    .photo-info h3 {
+        font-size: 1.1em;
+    }
+
+    .card-actions {
+        flex-direction: column;
+        gap: 0.6em;
+        padding: 0 0.9em 0.9em;
+    }
+
+    .action-btn {
+        width: 100%;
+        flex: none;
+    }
+
+    .user-photos-section h2 {
+        font-size: 1.3em;
+    }
+
+    .no-photos-content {
+        padding: 2em 1.5em;
+    }
+
+    .no-photos-content h3 {
+        font-size: 1.3em;
+    }
+
+    .no-photos-content p {
+        font-size: 0.95em;
+    }
 }
