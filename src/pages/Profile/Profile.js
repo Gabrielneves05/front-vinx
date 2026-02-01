@@ -182,7 +182,7 @@ const Profile = () => {
             </div>
 
             <div className="edit-photo hide" ref={editPhotoForm}>
-              <p>Editando:</p>
+              <p>Editar Foto</p>
               {editImage && (
                 <img src={`${uploadUrl}/photos/${editImage}`} 
                   alt={editTitle}
