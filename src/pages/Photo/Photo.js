@@ -5,6 +5,7 @@ import { uploadUrl } from "../../utils/config";
 // Components
 import PhotoItem from "../../components/PhotoItem/PhotoItem";
 import Message from "../../components/Message/Message";
+import Loading from "../../components/Loading/Loading";
 import { Link } from "react-router-dom";
 
 // Icons
@@ -62,19 +63,14 @@ const Photo = () => {
     }
 
     if(loading) {
-        return (
-            <div className="loading-container">
-                <div className="loading-spinner"></div>
-                <p>Carregando...</p>
-            </div>
-        );
+        return <Loading />;
     }
 
     return (
         <div className="photo-container">
             <div className="photo-content">
                 <div className="photo-header">
-                    <h1>Detalhes da Foto</h1>
+                    <h1>Detalhes da Publicação</h1>
                     <p>Veja, curta e comente esta publicação</p>
                 </div>
 

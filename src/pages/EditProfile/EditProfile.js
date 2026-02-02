@@ -80,73 +80,78 @@ const EditProfile = () => {
     }
 
     return (
-        <div className="edit-profile">
-            <h1>Vin<span>X</span></h1>
-            <h2>Edite seus dados de perfil</h2>
-            <p className="subtitle">Adicione uma imagem de perfil e conte-nos sobre você!</p>
+        <div className="edit-profile-container">
+            <div className="edit-profile-content">
+                <div className="edit-profile-header">
+                    <h1>Editar Perfil</h1>
+                    <p className="subtitle">Adicione uma imagem de perfil e conte-nos sobre você!</p>
+                </div>
 
-            <form onSubmit={handleSubmit} className="form-modern">
-                <div className="form-group image-preview-group">
-                    {(user.profileImage || previewImage) && (
-                        <img
-                            className="profile-image"
-                            src={
-                                previewImage
-                                    ? URL.createObjectURL(previewImage)
-                                    : `${uploadUrl}/users/${user.profileImage}`
-                            }
-                            alt={user.name}
-                        />
-                    )}
+                <div className="edit-profile-card">
+                    <form onSubmit={handleSubmit} className="form-modern">
+                        <div className="form-group image-preview-group">
+                            {(user.profileImage || previewImage) && (
+                                <img
+                                    className="profile-image"
+                                    src={
+                                        previewImage
+                                            ? URL.createObjectURL(previewImage)
+                                            : `${uploadUrl}/users/${user.profileImage}`
+                                    }
+                                    alt={user.name}
+                                />
+                            )}
+                        </div>
+                        <div className="form-group">
+                            <label>Nome</label>
+                            <input
+                                type="text"
+                                placeholder="Digite seu nome"
+                                value={name || ""}
+                                onChange={e => setName(e.target.value)}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Email</label>
+                            <input
+                                type="email"
+                                placeholder="Digite seu e-mail"
+                                value={email || ""}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Imagem do Perfil</label>
+                            <input
+                                type="file"
+                                onChange={handleFile}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Bio</label>
+                            <input
+                                type="text"
+                                placeholder="Descrição do perfil"
+                                value={bio || ""}
+                                onChange={e => setBio(e.target.value)}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Nova senha</label>
+                            <input
+                                type="password"
+                                placeholder="Digite sua nova senha"
+                                value={password || ""}
+                                onChange={e => setPassword(e.target.value)}
+                            />
+                        </div>
+                        {!loading && <input type="submit" value="Atualizar" className="btn-submit" />}
+                        {loading && <input type="submit" value="Aguarde..." className="btn-submit" disabled />}
+                        {error && <Message message={error} type="error" />}
+                        {message && <Message message={message} type="success" />}
+                    </form>
                 </div>
-                <div className="form-group">
-                    <label>Nome</label>
-                    <input
-                        type="text"
-                        placeholder="Digite seu nome"
-                        value={name || ""}
-                        onChange={e => setName(e.target.value)}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Email</label>
-                    <input
-                        type="email"
-                        placeholder="Digite seu e-mail"
-                        value={email || ""}
-                        disabled
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Imagem do Perfil</label>
-                    <input
-                        type="file"
-                        onChange={handleFile}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Bio</label>
-                    <input
-                        type="text"
-                        placeholder="Descrição do perfil"
-                        value={bio || ""}
-                        onChange={e => setBio(e.target.value)}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Nova senha</label>
-                    <input
-                        type="password"
-                        placeholder="Digite sua nova senha"
-                        value={password || ""}
-                        onChange={e => setPassword(e.target.value)}
-                    />
-                </div>
-                {!loading && <input type="submit" value="Atualizar" className="btn-submit" />}
-                {loading && <input type="submit" value="Aguarde..." className="btn-submit" disabled />}
-                {error && <Message message={error} type="error" />}
-                {message && <Message message={message} type="success" />}
-            </form>
+            </div>
         </div>
     );
 };

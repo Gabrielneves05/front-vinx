@@ -13,8 +13,13 @@ const initialState = {
 export const profile = createAsyncThunk(
     "user/profile",
     async (user, thunkAPI) => {
-        const token = thunkAPI.getState().auth.user.token;
-
+        const authUser = thunkAPI.getState().auth.user;
+        
+        if (!authUser || !authUser.token) {
+            return thunkAPI.rejectWithValue("Usuário não autenticado");
+        }
+        
+        const token = authUser.token;
         const data = await userService.profile(user, token);
 
         return data;
@@ -25,8 +30,13 @@ export const profile = createAsyncThunk(
 export const updateProfile = createAsyncThunk(
     "user/update",
     async (user, thunkAPI) => {
-        const token = thunkAPI.getState().auth.user.token;
-
+        const authUser = thunkAPI.getState().auth.user;
+        
+        if (!authUser || !authUser.token) {
+            return thunkAPI.rejectWithValue("Usuário não autenticado");
+        }
+        
+        const token = authUser.token;
         const data = await userService.updateProfile(user, token);
 
         // Check for errors
@@ -54,6 +64,13 @@ export const userSlice = createSlice({
     reducers: {
         resetMessage: state => {
             state.message = null
+        },
+        resetUserState: state => {
+            state.user = {};
+            state.error = false;
+            state.success = false;
+            state.loading = false;
+            state.message = null;
         }
     },
     extraReducers: builder => {
@@ -71,6 +88,12 @@ export const userSlice = createSlice({
                 state.success = true;
                 state.error = null;
                 state.user = action.payload;
+        })
+        .addCase(
+            profile.rejected, 
+            (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
         })
         .addCase(
             updateProfile.pending, 
@@ -108,9 +131,15 @@ export const userSlice = createSlice({
                 state.success = true;
                 state.error = null;
                 state.user = action.payload;
+        })
+        .addCase(
+            getUserDetails.rejected, 
+            (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
         });
     }
 })
 
-export const { resetMessage } = userSlice.actions;
+export const { resetMessage, resetUserState } = userSlice.actions;
 export default userSlice.reducer;

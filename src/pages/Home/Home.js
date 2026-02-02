@@ -3,6 +3,7 @@ import "./Home.css";
 // Components
 import LikeContainer from "../../components/LikeContainer/LikeContainer";
 import PhotoItem from "../../components/PhotoItem/PhotoItem";
+import Loading from "../../components/Loading/Loading";
 import { Link } from "react-router-dom";
 
 // Hooks
@@ -34,19 +35,14 @@ const Home = () => {
     }
 
     if(loading) {
-        return (
-            <div className="loading-container">
-                <div className="loading-spinner"></div>
-                <p>Carregando...</p>
-            </div>
-        );
+        return <Loading />;
     }
 
     return (
         <div className="home-container">
             <div className="home-content">
                 <div className="feed-header">
-                    <h1>Feed de Fotos</h1>
+                    <h1>Feed de Publicações</h1>
                     <p>Descubra e compartilhe momentos incríveis</p>
                 </div>
 

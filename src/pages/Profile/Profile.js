@@ -4,6 +4,7 @@ import { uploadUrl } from "../../utils/config";
 
 // components
 import Message from "../../components/Message/Message";
+import Loading from "../../components/Loading/Loading";
 import { Link } from "react-router-dom";
 import { Eye, Pencil, X } from "lucide-react";
 
@@ -132,17 +133,17 @@ const Profile = () => {
   }
 
   if (loading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-spinner"></div>
-        <p>Carregando...</p>
-      </div>
-    );
+    return <Loading />;
   }
 
   return (
     <div className="profile-container">
       <div className="profile-content">
+        <div className="profile-page-header">
+          <h1>Publicações</h1>
+          <p>Compartilhe seus melhores momentos</p>
+        </div>
+
         <div className="profile-header">
           {user.profileImage && (
             <img

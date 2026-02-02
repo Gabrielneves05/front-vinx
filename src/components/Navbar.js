@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 
 // Redux
 import { logout, reset } from "../slices/authSlice";
+import { resetUserState } from "../slices/userSlice";
 
 const Navbar = () => {
     const { auth } = useAuth();
@@ -34,6 +35,7 @@ const Navbar = () => {
     const handleLogout = () => {
         dispatch(logout());
         dispatch(reset());
+        dispatch(resetUserState());
         setMobileMenuOpen(false);
         navigate("/login");
     }
