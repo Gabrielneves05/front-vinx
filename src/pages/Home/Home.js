@@ -22,39 +22,38 @@ const Home = () => {
     const { user } = useSelector(state => state.auth);
     const { photos, loading } = useSelector(state => state.photo);
 
-    // Load all photos
     useEffect(() => {
         dispatch(getPhotos());
     }, [dispatch]);
 
-    // Like a photo
     const handleLike = (photo) => {
         dispatch(like(photo._id));
-
         resetMessage();
-    }
+    };
 
-    if(loading) {
+    if (loading) {
         return <Loading />;
     }
 
+    const hasPhotos = photos && Array.isArray(photos) && photos.length > 0;
+
     return (
         <div className="home-container">
-            <div className="home-content">
+            <div className={`home-content ${!hasPhotos ? "home-empty" : ""}`}>
                 <div className="feed-header">
                     <h1>Feed de Publicações</h1>
                     <p>Descubra e compartilhe momentos incríveis</p>
                 </div>
 
-                {photos && Array.isArray(photos) && photos.length > 0 ? (
+                {hasPhotos ? (
                     <div className="photos-grid">
                         {photos.map(photo => (
                             <div key={photo._id} className="photo-card">
                                 <PhotoItem photo={photo} />
-                                <LikeContainer 
-                                    photo={photo} 
-                                    user={user} 
-                                    handleLike={handleLike} 
+                                <LikeContainer
+                                    photo={photo}
+                                    user={user}
+                                    handleLike={handleLike}
                                 />
                                 <div className="card-footer">
                                     <Link className="btn-view-more" to={`/photos/${photo._id}`}>
@@ -65,19 +64,17 @@ const Home = () => {
                         ))}
                     </div>
                 ) : (
-                    <div className="no-photos">
-                        <div className="no-photos-content">
-                            <h2>Ainda não existem fotos publicadas</h2>
-                            <p>Seja o primeiro a compartilhar suas memórias!</p>
-                            <Link to={`/users/${user._id}`} className="btn-first-photo">
-                                Publicar Primeira Foto
-                            </Link>
-                        </div>
+                    <div className="empty-feed">
+                        <h2>Ainda não existem fotos publicadas</h2>
+                        <p>Seja o primeiro a compartilhar suas memórias!</p>
+                        <Link to={`/users/${user._id}`} className="btn-first-photo">
+                            Publicar Primeira Foto
+                        </Link>
                     </div>
                 )}
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Home;

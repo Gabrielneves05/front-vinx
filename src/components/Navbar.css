@@ -21,12 +21,7 @@ span {
   font-weight: 800;
   color: #1a1a1a;
   text-decoration: none;
-  transition: transform 0.3s ease;
   z-index: 1001;
-}
-
-.logo:hover {
-  transform: scale(1.05);
 }
 
 .logo span {

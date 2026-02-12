@@ -1,5 +1,4 @@
 import "./Profile.css";
-
 import { uploadUrl } from "../../utils/config";
 
 // components
@@ -15,9 +14,9 @@ import { useParams } from "react-router-dom";
 
 // redux
 import { getUserDetails } from "../../slices/userSlice";
-import { 
-  publishPhoto, 
-  resetMessage, 
+import {
+  publishPhoto,
+  resetMessage,
   getUserPhotos,
   updatePhoto,
   deletePhoto,
@@ -25,21 +24,19 @@ import {
 
 const Profile = () => {
   const { id } = useParams();
-
   const dispatch = useDispatch();
 
   const { user, loading } = useSelector(state => state.user);
   const { user: userAuth } = useSelector(state => state.auth);
-  const { 
-    photos, 
-    loading: loadingPhoto, 
-    message: messagePhoto, 
-    error: errorPhoto 
+  const {
+    photos,
+    loading: loadingPhoto,
+    message: messagePhoto,
+    error: errorPhoto
   } = useSelector(state => state.photo);
 
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
-
   const [editId, setEditId] = useState("");
   const [editImage, setEditImage] = useState("");
   const [editTitle, setEditTitle] = useState("");
@@ -55,14 +52,13 @@ const Profile = () => {
   }, [dispatch, id]);
 
   const handleFile = e => {
-      const image = e.target.files[0];
-
-      setImage(image);
+    const image = e.target.files[0];
+    setImage(image);
   }
 
   const resetComponentMessage = () => {
     setTimeout(() => {
-        dispatch(resetMessage());
+      dispatch(resetMessage());
     }, 2000);
   }
 
@@ -70,14 +66,14 @@ const Profile = () => {
     e.preventDefault();
 
     const photoData = {
-      title, 
+      title,
       image
     }
 
     // Build form data
     const formData = new FormData();
 
-    const photoFormData = Object.keys(photoData).forEach(key => 
+    const photoFormData = Object.keys(photoData).forEach(key =>
       formData.append(key, photoData[key])
     );
 
@@ -136,9 +132,11 @@ const Profile = () => {
     return <Loading />;
   }
 
+  const hasPhotos = photos && Array.isArray(photos) && photos.length > 0;
+
   return (
     <div className="profile-container">
-      <div className="profile-content">
+      <div className={`profile-content ${!hasPhotos ? "profile-empty" : ""}`}>
         <div className="profile-page-header">
           <h1>Publicações</h1>
           <p>Compartilhe seus melhores momentos</p>
@@ -152,7 +150,6 @@ const Profile = () => {
               className="profile-image"
             />
           )}
-
           <div className="profile-description">
             <h2>{user.name}</h2>
             <p>{user.bio}</p>
@@ -165,17 +162,17 @@ const Profile = () => {
               <h3>Compartilhe algum momento seu:</h3>
               <form onSubmit={submitHandle}>
                 <label>
-                    <span>Título para a foto:</span>
-                    <input 
-                      type="text" 
-                      placeholder="Insira um título" 
-                      onChange={(e) => setTitle(e.target.value)} 
-                      value={title || ""} 
-                    />
+                  <span>Título para a foto:</span>
+                  <input
+                    type="text"
+                    placeholder="Insira um título"
+                    onChange={(e) => setTitle(e.target.value)}
+                    value={title || ""}
+                  />
                 </label>
                 <label>
-                    <span>Imagem:</span>
-                    <input type="file" onChange={handleFile} />
+                  <span>Imagem:</span>
+                  <input type="file" onChange={handleFile} />
                 </label>
                 {!loadingPhoto && <input type="submit" value="Postar" />}
                 {loadingPhoto && <input type="submit" value="Aguarde..." disabled />}
@@ -185,28 +182,25 @@ const Profile = () => {
             <div className="edit-photo hide" ref={editPhotoForm}>
               <p>Editar Foto</p>
               {editImage && (
-                <img src={`${uploadUrl}/photos/${editImage}`} 
+                <img
+                  src={`${uploadUrl}/photos/${editImage}`}
                   alt={editTitle}
                 />
               )}
-
               <form onSubmit={handleUpdate}>
-                <input 
-                  type="text" 
-                  placeholder="Insira um novo título" 
-                  onChange={(e) => setEditTitle(e.target.value)} 
-                  value={editTitle || ""} 
+                <input
+                  type="text"
+                  placeholder="Insira um novo título"
+                  onChange={(e) => setEditTitle(e.target.value)}
+                  value={editTitle || ""}
                 />
                 <input type="submit" value="Atualizar" />
-
-                <button 
-                  className="cancel-btn" 
-                  onClick={handleCancelEdit}
-                >
+                <button className="cancel-btn" onClick={handleCancelEdit}>
                   Cancelar Edição
                 </button>
               </form>
             </div>
+
             {errorPhoto && <Message message={errorPhoto} type="error" />}
             {messagePhoto && <Message message={messagePhoto} type="success" />}
           </>
@@ -214,35 +208,38 @@ const Profile = () => {
 
         <div className="user-photos-section">
           <h2>Fotos Publicadas</h2>
-          
-          {photos && photos.length > 0 ? (
+          {hasPhotos ? (
             <div className="photos-grid">
               {photos.map((photo) => (
                 <div className="photo-card" key={photo._id}>
                   {photo.image && (
                     <div className="photo-image-wrapper">
-                      <img 
-                        src={`${uploadUrl}/photos/${photo.image}`} 
-                        alt={photo.title} 
+                      <img
+                        src={`${uploadUrl}/photos/${photo.image}`}
+                        alt={photo.title}
                       />
                     </div>
                   )}
-
                   <div className="photo-info">
                     <h3>{photo.title}</h3>
                   </div>
-
                   {id === userAuth._id ? (
                     <div className="card-actions">
                       <Link to={`/photos/${photo._id}`} className="action-btn view-btn">
                         <Eye size={18} />
                         <span>Ver</span>
                       </Link>
-                      <button onClick={() => handleEdit(photo)} className="action-btn edit-btn">
+                      <button
+                        onClick={() => handleEdit(photo)}
+                        className="action-btn edit-btn"
+                      >
                         <Pencil size={18} />
                         <span>Editar</span>
                       </button>
-                      <button onClick={() => handleDelete(photo._id)} className="action-btn delete-btn">
+                      <button
+                        onClick={() => handleDelete(photo._id)}
+                        className="action-btn delete-btn"
+                      >
                         <X size={18} />
                         <span>Excluir</span>
                       </button>
@@ -258,11 +255,9 @@ const Profile = () => {
               ))}
             </div>
           ) : (
-            <div className="no-photos">
-              <div className="no-photos-content">
-                <h3>Ainda não existem fotos publicadas!</h3>
-                <p>Compartilhe seus melhores momentos agora!</p>
-              </div>
+            <div className="empty-photos">
+              <h3>Ainda não existem fotos publicadas!</h3>
+              <p>Compartilhe seus melhores momentos agora!</p>
             </div>
           )}
         </div>
