@@ -5,17 +5,22 @@ const register = async (data) => {
     const config = requestConfig("POST", data);
     
     try {
-        const response = await fetch(apiUrl + "/users/register", config)
-            .then(res => res.json())
-            .catch(err => err);
+        const res = await fetch(apiUrl + "/users/register", config);
+        const response = await res.json().catch(() => null);
 
-        if(response._id) {
+        if (!res.ok) {
+            return response && response.errors
+                ? response
+                : { errors: ["Falha ao cadastrar. Tente novamente."] };
+        }
+
+        if (response && response._id) {
             localStorage.setItem("user", JSON.stringify(response));
         }
 
         return response;
     } catch (error) {
-        console.log(error);
+        return { errors: ["Erro de rede ao cadastrar. Verifique sua conexão."] };
     }
 }
 
@@ -29,17 +34,22 @@ const login = async (data) => {
     const config = requestConfig("POST", data);
 
     try {
-        const response = await fetch(apiUrl + "/users/login", config)
-            .then(response => response.json())
-            .catch(err => err);
+        const res = await fetch(apiUrl + "/users/login", config);
+        const response = await res.json().catch(() => null);
 
-        if(response._id) {
+        if (!res.ok) {
+            return response && response.errors
+                ? response
+                : { errors: ["Falha ao entrar. Tente novamente."] };
+        }
+
+        if (response && response._id) {
             localStorage.setItem("user", JSON.stringify(response));
         }
 
         return response;
     } catch (error) {
-        console.log(error);
+        return { errors: ["Erro de rede ao entrar. Verifique sua conexão."] };
     }
 }
 
