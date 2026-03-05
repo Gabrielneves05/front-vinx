@@ -1,8 +1,10 @@
 export const apiUrl =
-  process.env.REACT_APP_API_URL || "http://localhost:3333/api";
+  //process.env.REACT_APP_API_URL || "http://localhost:3333/api";
+  process.env.REACT_APP_API_URL || "https://back-vinx.onrender.com/api";
 
 export const uploadUrl =
-  process.env.REACT_APP_UPLOAD_URL || "http://localhost:3333/uploads";
+  //process.env.REACT_APP_UPLOAD_URL || "http://localhost:3333/uploads";
+  process.env.REACT_APP_UPLOAD_URL || "https://back-vinx.onrender.com/uploads";
 
 export const requestConfig = (method, data, token = null, image = null) => {
   let config;
